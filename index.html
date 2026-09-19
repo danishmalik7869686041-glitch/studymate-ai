@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyMate AI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+    <div class="sm-shell">
+
+        <!-- ONE SIDEBAR -->
+        <aside class="sm-sidebar">
+
+            <div class="sm-brand">
+                <div class="sm-cap">🎓</div>
+                <div>
+                    <strong>StudyMate</strong>
+                    <span>AI</span>
+                </div>
+            </div>
+
+            <nav class="sm-nav">
+                <button class="sm-nav-button" data-target="panel-ask">
+                    <span class="sm-nav-icon">💬</span>
+                    <span>Ask AI</span>
+                </button>
+
+                <button class="sm-nav-button" data-target="panel-plan">
+                    <span class="sm-nav-icon">📚</span>
+                    <span>Study Plan</span>
+                </button>
+
+                <button class="sm-nav-button" data-target="panel-quiz">
+                    <span class="sm-nav-icon">🧠</span>
+                    <span>Quiz</span>
+                </button>
+
+                <button class="sm-nav-button" data-target="panel-pdf">
+                    <span class="sm-nav-icon">📄</span>
+                    <span>Study PDF</span>
+                </button>
+
+                <button class="sm-nav-button" data-target="panel-flashcards">
+                    <span class="sm-nav-icon">🗂️</span>
+                    <span>Flashcards</span>
+                </button>
+
+                <button class="sm-nav-button" data-target="panel-notes">
+                    <span class="sm-nav-icon">📝</span>
+                    <span>AI Notes</span>
+                </button>
+
+                <button class="sm-nav-button" data-target="panel-dashboard">
+                    <span class="sm-nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </button>
+            </nav>
+
+            <div class="sm-theme-wrap">
+                <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">
+                    🌙 Dark Mode
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- ONE CONTENT AREA -->
+        <main class="sm-content">
+
+            <!-- ASK AI -->
+            <section id="panel-ask" class="card sm-panel">
+                <h2>💬 Ask StudyMate AI</h2>
+                <p>Ask any study-related question and get a clear AI answer.</p>
+                <input id="question" type="text" placeholder="Ask your question...">
+                <button onclick="askStudyMate()">🤖 Ask AI</button>
+                <div id="chatBox"></div>
+            </section>
+
+            <!-- STUDY PLAN -->
+            <section id="panel-plan" class="card sm-panel">
+                <h2>📚 Create Your Study Plan</h2>
+                <p>Generate a personalized AI study plan.</p>
+                <input id="subject" type="text" placeholder="Enter subject e.g. Biology">
+                <input id="days" type="number" min="1" placeholder="Number of days">
+                <button onclick="createPlan()">🚀 Create Study Plan</button>
+                <div id="result"></div>
+            </section>
+
+            <!-- QUIZ -->
+            <section id="panel-quiz" class="card quiz-card sm-panel">
+                <h2>🧠 Quiz Generator</h2>
+                <p>Generate an AI quiz and test your knowledge.</p>
+                <input id="quizSubject" type="text" placeholder="Enter quiz topic">
+                <input id="quizQuestions" type="number" min="1" max="20" placeholder="Number of questions">
+                <button onclick="generateQuiz()">🎯 Generate Quiz</button>
+                <div id="quizResult"></div>
+            </section>
+
+            <!-- PDF -->
+            <section id="panel-pdf" class="card sm-panel">
+                <h2>📄 Study PDF</h2>
+                <p>Upload a PDF and let AI summarize it for study.</p>
+                <input id="pdfFile" type="file" accept="application/pdf">
+                <button onclick="uploadPDF()">🤖 Upload &amp; Summarize</button>
+                <div id="pdfResult"></div>
+            </section>
+
+            <!-- FLASHCARDS -->
+            <section id="panel-flashcards" class="card sm-panel">
+                <h2>🗂️ AI Flashcards</h2>
+                <p>Create interactive flashcards for quick revision.</p>
+                <input id="flashcardSubject" type="text" placeholder="Enter topic">
+                <input id="flashcardCount" type="number" min="1" max="20" placeholder="Number of flashcards">
+                <button onclick="generateFlashcards()">🃏 Generate Flashcards</button>
+                <div id="flashcardResult"></div>
+            </section>
+
+            <!-- AI NOTES -->
+            <section id="panel-notes" class="card notes-card sm-panel">
+                <h2>📝 AI Notes Generator</h2>
+                <p>Generate clear and easy-to-revise notes with AI.</p>
+                <input id="notesSubject" type="text" placeholder="Enter topic e.g. Photosynthesis">
+                <button onclick="generateNotes()">📝 Generate Notes</button>
+                <div id="notesResult"></div>
+            </section>
+
+            <!-- DASHBOARD -->
+            <section id="panel-dashboard" class="card dashboard-card sm-panel">
+                <h2>📊 Study Dashboard</h2>
+                <p>Track your StudyMate activity and progress.</p>
+
+                <div class="dashboard-stats">
+                    <div class="stat-box">
+                        <div class="stat-icon">📚</div>
+                        <h3 id="studySessions">0</h3>
+                        <p>Study Sessions</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-icon">🧠</div>
+                        <h3 id="quizCompleted">0</h3>
+                        <p>Quizzes Completed</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-icon">🎯</div>
+                        <h3 id="averageScore">0%</h3>
+                        <p>Average Score</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-icon">📄</div>
+                        <h3 id="pdfCompleted">0</h3>
+                        <p>PDFs Completed</p>
+                    </div>
+                </div>
+
+                <div class="progress-area">
+                    <h3>📈 Overall Progress</h3>
+                    <p id="progressText">0%</p>
+                    <div class="progress-bar">
+                        <div id="overallProgress"></div>
+                    </div>
+                </div>
+
+                <div class="streak-box">
+                    <h3>🔥 Study Streak</h3>
+                    <p id="studyStreak">0 days</p>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
