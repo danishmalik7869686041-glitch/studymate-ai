@@ -303,8 +303,8 @@ Rules:
 // START SERVER
 // ===============================
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(
-        "StudyMate AI running at http://localhost:3000"
+        "StudyMate AI running at http://localhost:" + (process.env.PORT || 3000)
     );
 });
